@@ -8,6 +8,7 @@
 ## it can be looked up in the cache, avoiding that way another time-consuming 
 ## computation of the same inversed matrix.
 
+## this function takes a matrix named X as an argument
 
 makeCacheMatrix <- function(x = matrix()) {
     
@@ -27,9 +28,20 @@ makeCacheMatrix <- function(x = matrix()) {
     
 }
 
-
-## Write a short comment describing this function
+## the function calculates the inverse of the matrix given from the makeCacheMatrix
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+    
+    inv <- x$getInverse()
+    
+    if (!is.null(inv) ) {
+        message("getting cache data")
+        return(inv)    
     }
+    
+    mat <- x$get()
+    inv <- solve.default(mat, ...)
+    x$setInverse(inv)
+    
+    inv
+}
